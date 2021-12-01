@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "classmap": [
+            "wp-content/"
+        ]
+    },
+    "require": {
+        "phpunit/phpunit": "8.1.2"
+    }
+}
