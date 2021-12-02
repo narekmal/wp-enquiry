@@ -122,6 +122,8 @@ class Enquiry {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-enquiry-public.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'shortcodes/enquiry-form.php';
+
 		$this->loader = new Enquiry_Loader();
 
 	}
