@@ -1,0 +1,11 @@
+.enquiry-form__heading {
+  margin-bottom: 10px; }
+
+.enquiry-form__row {
+  display: flex;
+  margin-bottom: 5px; }
+  .enquiry-form__row > input {
+    flex: 1;
+    margin: 0; }
+  .enquiry-form__row > input:not(:last-child) {
+    margin-right: 5px; }

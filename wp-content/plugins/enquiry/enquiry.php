@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Enquiry
  * Plugin URI:        
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Shortcodes to display enquiry form and submitted results
  * Version:           1.0.0
  * Author:            Narek Malkhasyan
  * Author URI:        https://narek-dev.com
