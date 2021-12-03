@@ -4,11 +4,15 @@
   "description": "WordPress plugin providing shortcodes to display enquiry form and submitted results",
   "scripts": {
     "build:scss": "node-sass src/scss/main.scss -o public/css",
-    "watch": "onchange \"src/scss\" -- run-s build:scss"
+    "watch:scss": "onchange \"src/scss\" -- run-s build:scss",
+    "start:bs": "browser-sync start --proxy 'http://localhost:8080' --files 'public/css/*.css', 'public/js/*.js'",
+    "dev": "concurrently \"npm:start:bs\" \"npm:watch:scss\""
   },
   "devDependencies": {
+    "browser-sync": "^2.27.7",
     "node-sass": "^6.0.1",
     "npm-run-all": "^4.1.5",
-    "onchange": "^7.1.0"
+    "onchange": "^7.1.0",
+    "concurrently": "^6.4.0"
   }
 }
