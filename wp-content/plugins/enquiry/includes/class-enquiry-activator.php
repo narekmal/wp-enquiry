@@ -30,7 +30,21 @@ class Enquiry_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'enquiry_form_data';
 
+		$sql = "CREATE TABLE $table_name (
+			id mediumint(9) NOT NULL AUTO_INCREMENT,
+			first_name text NOT NULL,
+			last_name text NOT NULL,
+			email text NOT NULL,
+			subject text NULL,
+			message text NOT NULL,
+			PRIMARY KEY  (id)
+		);";
+
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		dbDelta( $sql );
 	}
 
 }
