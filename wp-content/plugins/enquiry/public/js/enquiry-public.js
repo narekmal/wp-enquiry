@@ -11,6 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		const formData = new FormData();
 		formData.append('action', 'enquiry_process_form_data');
+		const inputNames = ["first_name", "last_name", "email", "subject", "message"];
+		inputNames.forEach(name => {
+			formData.append(name, form.querySelector(`[name='${name}']`).value);
+		});
 
 		fetch(ajaxUrl, {
 			method: "POST",

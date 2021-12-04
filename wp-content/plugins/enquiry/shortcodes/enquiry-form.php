@@ -8,16 +8,16 @@ function enquiry_form( $atts ){
 
     <div class="enquiry-form">
         <h3 class="enquiry-form__heading">Submit your feedback</h3>
-        <form action="" class="enquiry-form__form js-enquiry-form">
+        <form class="enquiry-form__form js-enquiry-form">
             <div class="enquiry-form__row">
-                <input type="text" placeholder="First Name" class="enquiry-form__first-name">
-                <input type="text" placeholder="Last Name" class="enquiry-form__last-name">
+                <input name="first_name" type="text" placeholder="First Name" class="enquiry-form__first-name">
+                <input name="last_name" type="text" placeholder="Last Name" class="enquiry-form__last-name">
             </div>
             <div class="enquiry-form__row">
-                <input type="text" placeholder="Email" class="enquiry-form__email">
-                <input type="text" placeholder="Subject" class="enquiry-form__subject">
+                <input name="email" type="text" placeholder="Email" class="enquiry-form__email">
+                <input name="subject" type="text" placeholder="Subject" class="enquiry-form__subject">
             </div>
-            <textarea name="" placeholder="Message" cols="30" rows="10" class="enquiry-form__message"></textarea>
+            <textarea name="message" placeholder="Message" cols="30" rows="10" class="enquiry-form__message"></textarea>
             <input type="submit" class="enquiry-form__submit">
         </form>
         <div class="enquiry-form__overlay enquiry-form__overlay--processing">
@@ -40,10 +40,21 @@ add_shortcode( 'enquiry_form', 'enquiry_form' );
 
 
 function enquiry_process_form_data() {
-	//update_post_meta($_POST['offer_id'], 'favorite_count', $_POST['favorite_count']);
+    global $wpdb;
+
+    $post_params = ["first_name", "last_name", "email", "subject", "message"];
+    $db_params = [];
+    
+    foreach($post_params as $param) {
+        $db_params[$param] = $_POST[$param];
+    }
+
+    $result = $wpdb->insert($wpdb->prefix . 'enquiry_form_data', $db_params);
+
 	echo json_encode([
-        "status" => "failure"
+        "status" => $result ? "success" : "failure"
     ]);
+
   	die();
 }
 add_action( 'wp_ajax_nopriv_enquiry_process_form_data', 'enquiry_process_form_data' );
