@@ -1,32 +1,41 @@
-(function( $ ) {
-	'use strict';
+document.addEventListener("DOMContentLoaded", () => { 
+	"use strict";
 
-	/**
-	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+    const form = document.querySelector(".js-enquiry-form");
 
-})( jQuery );
+	form.addEventListener("submit", e => {
+		e.preventDefault();
+
+		const blockElement = form.closest(".enquiry-form");
+		blockElement.classList.add("enquiry-form--processing");
+
+		const formData = new FormData();
+		formData.append('action', 'enquiry_process_form_data');
+
+		fetch(ajaxUrl, {
+			method: "POST",
+			body: formData
+		})
+		.then(response => { 
+			response.json().then(response => {
+				console.log(response);
+				blockElement.classList.remove("enquiry-form--processing");
+				blockElement.classList.add(response.status == "success" ? "enquiry-form--success" : "enquiry-form--failure");
+			})
+		})
+		.catch(function(response){ 
+			console.log(response); 
+			blockElement.classList.remove("enquiry-form--processing");
+			blockElement.classList.add("enquiry-form--failure");
+		});
+	});
+
+    // const handleCardClick = e => {
+    //     const clickedCard = e.target.closest(".js-card")
+    //     cards.forEach(card => {
+    //         card.isSameNode(clickedCard) ? card.classList.remove("js-invert-colors") : card.classList.add("js-invert-colors");
+    //     });
+    // }
+
+    // cards.forEach(card => card.addEventListener("click", handleCardClick));
+});

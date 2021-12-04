@@ -1,11 +1,31 @@
-.enquiry-form__heading {
-  margin-bottom: 10px; }
-
-.enquiry-form__row {
-  display: flex;
-  margin-bottom: 5px; }
-  .enquiry-form__row > input {
-    flex: 1;
-    margin: 0; }
-  .enquiry-form__row > input:not(:last-child) {
-    margin-right: 5px; }
+.enquiry-form {
+  position: relative;
+  padding: 10px; }
+  .enquiry-form__heading {
+    margin-bottom: 10px; }
+  .enquiry-form__row {
+    display: flex;
+    margin-bottom: 5px; }
+    .enquiry-form__row > input {
+      flex: 1;
+      margin: 0; }
+    .enquiry-form__row > input:not(:last-child) {
+      margin-right: 5px; }
+  .enquiry-form__overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(150, 150, 150, 0.95);
+    z-index: 10000; }
+  .enquiry-form--processing .enquiry-form__overlay--processing {
+    display: flex; }
+  .enquiry-form--success .enquiry-form__overlay--success {
+    display: flex; }
+  .enquiry-form--failure .enquiry-form__overlay--failure {
+    display: flex; }
