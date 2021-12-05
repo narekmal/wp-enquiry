@@ -3,13 +3,17 @@
 function enquiry_results( $atts ){
 
     global $wpdb;
-    $table_name = $wpdb->prefix . 'enquiry_form_data';
 
-    $sql = "SELECT id, first_name, last_name, email, subject
+    $sql = "SELECT SQL_CALC_FOUND_ROWS id, first_name, last_name, email, subject
         FROM {$wpdb->prefix}enquiry_form_data
-        ORDER BY time_submitted DESC";
+        ORDER BY time_submitted DESC
+        LIMIT 10";
 
     $form_data = $wpdb->get_results($sql);
+
+    $total_count = $wpdb->get_var("SELECT FOUND_ROWS()");
+
+    $page_count = ceil($total_count/10);
 
 	ob_start();
     ?>
@@ -43,6 +47,15 @@ function enquiry_results( $atts ){
             </div>
             <?php endforeach; ?>
         </div>
+        <?php if($page_count > 1): ?>
+        <div class="enquiry-results__pagination">
+            <?php for($i=1; $i<=$page_count; $i++): ?>
+            <a data-page-number="<?php echo $i; ?>" class="enquiry-results__page-link js-page-link">
+                <?php echo $i; ?>
+            </a>
+            <?php endfor; ?>
+        </div>
+        <?php endif; ?>
     </div>
     
     <?php
@@ -53,7 +66,7 @@ function enquiry_results( $atts ){
 add_shortcode( 'enquiry_results', 'enquiry_results' );
 
 
-function enquiry_get_form_data() {
+function enquiry_get_form_record() {
     global $wpdb;
 
     $sql = "SELECT message
@@ -65,6 +78,29 @@ function enquiry_get_form_data() {
 	echo json_encode([
         "status" => $result ? "success" : "failure",
         "data" => $result
+    ]);
+
+  	die();
+}
+add_action( 'wp_ajax_nopriv_enquiry_get_form_record', 'enquiry_get_form_record' );
+add_action( 'wp_ajax_enquiry_get_form_record', 'enquiry_get_form_record' );
+
+function enquiry_get_form_data() {
+    global $wpdb;
+
+    $offset = ($_POST["page_number"] - 1) * 10;
+
+    $sql = "SELECT id, first_name, last_name, email, subject
+        FROM {$wpdb->prefix}enquiry_form_data
+        ORDER BY time_submitted DESC
+        LIMIT 10
+        OFFSET $offset";
+
+    $form_data = $wpdb->get_results($sql);
+
+	echo json_encode([
+        "status" => $form_data ? "success" : "failure",
+        "data" => $form_data
     ]);
 
   	die();

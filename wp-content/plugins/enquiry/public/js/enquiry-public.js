@@ -46,6 +46,7 @@ const initEnquiryForm = () => {
 const initEnquiryResults = () => {
 	const blockClass = "enquiry-results";
 	const expanders = document.querySelectorAll(".js-row-expander");
+	const pageLinks = document.querySelectorAll(".js-page-link");
 
 	const handleExpanderClick = e => {
         const row = e.target.closest(`.${blockClass}__grid-row`);
@@ -54,7 +55,7 @@ const initEnquiryResults = () => {
 		details.classList.add(`${blockClass}__details--open`);
 
 		const formData = new FormData();
-		formData.append('action', 'enquiry_get_form_data');
+		formData.append('action', 'enquiry_get_form_record');
 		formData.append('id', rowId);
 
 		fetch(ajaxUrl, {
@@ -71,6 +72,26 @@ const initEnquiryResults = () => {
 		});
     }
 
+	const handlePageLinkClick = e => {
+        const pageNumber = e.target.getAttribute("data-page-number");
+		console.log(pageNumber);
+
+		const formData = new FormData();
+		formData.append('action', 'enquiry_get_form_data');
+		formData.append('page_number', pageNumber);
+
+		fetch(ajaxUrl, {
+			method: "POST",
+			body: formData
+		})
+		.then(response => { 
+			response.json().then(response => {
+				console.log(response);
+			})
+		});
+    }
+
     expanders.forEach(item => item.addEventListener("click", handleExpanderClick));
+    pageLinks.forEach(item => item.addEventListener("click", handlePageLinkClick));
 }
 
