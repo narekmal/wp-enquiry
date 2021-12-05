@@ -1,7 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => { 
-	"use strict";
+"use strict";
 
-    const form = document.querySelector(".js-enquiry-form");
+document.addEventListener("DOMContentLoaded", () => { 
+	initEnquiryForm();
+	initEnquiryResults();
+});
+
+const initEnquiryForm = () => {
+	const form = document.querySelector(".js-enquiry-form");
+
+	if(!form)
+		return;
 
 	form.addEventListener("submit", e => {
 		e.preventDefault();
@@ -33,13 +41,36 @@ document.addEventListener("DOMContentLoaded", () => {
 			blockElement.classList.add("enquiry-form--failure");
 		});
 	});
+}
 
-    // const handleCardClick = e => {
-    //     const clickedCard = e.target.closest(".js-card")
-    //     cards.forEach(card => {
-    //         card.isSameNode(clickedCard) ? card.classList.remove("js-invert-colors") : card.classList.add("js-invert-colors");
-    //     });
-    // }
+const initEnquiryResults = () => {
+	const blockClass = "enquiry-results";
+	const expanders = document.querySelectorAll(".js-row-expander");
 
-    // cards.forEach(card => card.addEventListener("click", handleCardClick));
-});
+	const handleExpanderClick = e => {
+        const row = e.target.closest(`.${blockClass}__grid-row`);
+        const details = row.querySelector(`.${blockClass}__details`);
+		const rowId = row.getAttribute("data-row-id");
+		details.classList.add(`${blockClass}__details--open`);
+
+		const formData = new FormData();
+		formData.append('action', 'enquiry_get_form_data');
+		formData.append('id', rowId);
+
+		fetch(ajaxUrl, {
+			method: "POST",
+			body: formData
+		})
+		.then(response => { 
+			response.json().then(response => {
+				console.log(response);
+				details.classList.add(`${blockClass}__details--loaded`);
+				console.log(details.querySelector(`.${blockClass}__details-content`));
+				details.querySelector(`.${blockClass}__details-content`).innerText = response.data;
+			})
+		});
+    }
+
+    expanders.forEach(item => item.addEventListener("click", handleExpanderClick));
+}
+

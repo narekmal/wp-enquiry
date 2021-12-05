@@ -1,0 +1,58 @@
+.enquiry-results {
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr) auto;
+        border: 1px solid grey;
+    }
+
+    &__grid-header {
+        display: contents;
+        font-weight: bold;
+    }
+
+    &__grid-header > * {
+        background-color: #cd2653;
+        color: white;
+    }
+
+    &__grid-header+&__grid-row &__details{display: block;}
+
+    &__grid-row {
+        display: contents;
+    }
+
+    &__grid-row:nth-child(odd) > *{
+        background-color: white;
+    }
+
+    &__cell {
+        border: 1px solid grey;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__details {
+        display: none;
+        grid-column: 1 / span 5;
+        padding: 0 4px;
+        border: 1px solid grey;
+        border-top: 0;
+    }
+
+    &__details--open {
+        display: block;
+    }
+
+    &__details-main {
+        display: none;
+    }
+
+    &__details--loaded &__details-main {
+        display: block;
+    }
+
+    &__details--loaded &__details-loading {
+        display: none;
+    }
+}

@@ -40,6 +40,7 @@ class Enquiry_Activator {
 			email text NOT NULL,
 			subject text NULL,
 			message text NOT NULL,
+			time_submitted TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY  (id)
 		);";
 
