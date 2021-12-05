@@ -30,22 +30,25 @@ function enquiry_results( $atts ){
                 <div class="enquiry-results__cell"></div>
             </div>
 
-            <?php foreach($form_data as $row) : ?>
-            <div class="enquiry-results__grid-row" data-row-id="<?php echo $row->id; ?>">
-                <div class="enquiry-results__cell"><?php echo $row->first_name; ?></div>
-                <div class="enquiry-results__cell"><?php echo $row->last_name; ?></div>
-                <div class="enquiry-results__cell"><?php echo $row->email; ?></div>
-                <div class="enquiry-results__cell"><?php echo $row->subject; ?></div>
-                <div class="enquiry-results__cell"><button class="js-row-expander">S</button></div>
-                <div class="enquiry-results__details">
-                    <div class="enquiry-results__details-loading">Loading...</div>
-                    <div class="enquiry-results__details-main">
-                        <div class="enquiry-results__details-title">Message</div>
-                        <div class="enquiry-results__details-content"></div>
+            <div class="enquiry-results__grid-rows js-grid-rows">
+                <?php foreach($form_data as $row) : ?>
+                <div class="enquiry-results__grid-row js-grid-row" data-row-id="<?php echo $row->id; ?>">
+                    <div class="enquiry-results__cell js-first-name"><?php echo $row->first_name; ?></div>
+                    <div class="enquiry-results__cell js-last-name"><?php echo $row->last_name; ?></div>
+                    <div class="enquiry-results__cell js-email"><?php echo $row->email; ?></div>
+                    <div class="enquiry-results__cell js-subject"><?php echo $row->subject; ?></div>
+                    <div class="enquiry-results__cell"><button class="js-row-expander">S</button></div>
+                    <div class="enquiry-results__details">
+                        <div class="enquiry-results__details-loading">Loading...</div>
+                        <div class="enquiry-results__details-main">
+                            <div class="enquiry-results__details-title">Message</div>
+                            <div class="enquiry-results__details-content"></div>
+                        </div>
                     </div>
                 </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
+            
         </div>
         <?php if($page_count > 1): ?>
         <div class="enquiry-results__pagination">

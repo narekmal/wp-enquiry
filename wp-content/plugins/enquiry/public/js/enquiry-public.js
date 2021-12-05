@@ -87,6 +87,7 @@ const initEnquiryResults = () => {
 		.then(response => { 
 			response.json().then(response => {
 				console.log(response);
+				renderRows(response);
 			})
 		});
     }
@@ -95,3 +96,21 @@ const initEnquiryResults = () => {
     pageLinks.forEach(item => item.addEventListener("click", handlePageLinkClick));
 }
 
+const renderRows = (rows) => {
+	const rowsContainer = document.querySelector('.js-grid-rows');
+	const firstRow = document.querySelector('.js-grid-row');
+	const newRows = document.createElement("div");
+	newRows.style.display = "contents";
+
+	rows.data.forEach(row => {
+		const clone = firstRow.cloneNode(true);
+		clone.querySelector(".js-first-name").innerText = row.first_name;
+		clone.querySelector(".js-last-name").innerText = row.last_name;
+		clone.querySelector(".js-subject").innerText = row.subject;
+		clone.querySelector(".js-email").innerText = row.email;
+		newRows.appendChild(clone);
+	});
+
+	rowsContainer.innerHTML = '';
+	rowsContainer.appendChild(newRows);
+}

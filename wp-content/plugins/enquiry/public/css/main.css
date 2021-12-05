@@ -48,7 +48,7 @@
 .enquiry-results__grid-header + .enquiry-results__grid-row .enquiry-results__details {
   display: block; }
 
-.enquiry-results__grid-row {
+.enquiry-results__grid-rows, .enquiry-results__grid-row {
   display: contents; }
 
 .enquiry-results__grid-row:nth-child(odd) > * {
