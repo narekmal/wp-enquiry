@@ -73,8 +73,18 @@ const initEnquiryResults = () => {
     }
 
 	const handlePageLinkClick = e => {
-        const pageNumber = e.target.getAttribute("data-page-number");
-		console.log(pageNumber);
+		const clickedLink = e.target;
+		const pagination = clickedLink.closest(`.${blockClass}__pagination`);
+        const pageNumber = clickedLink.getAttribute("data-page-number");
+
+		const activeClassName = `${blockClass}__page-link--active`;
+
+		pageLinks.forEach(item => {
+			item.classList.remove(activeClassName);
+		});
+		clickedLink.classList.add(activeClassName);
+
+		pagination.classList.add(`${blockClass}__pagination--loading`);
 
 		const formData = new FormData();
 		formData.append('action', 'enquiry_get_form_data');
@@ -86,7 +96,7 @@ const initEnquiryResults = () => {
 		})
 		.then(response => { 
 			response.json().then(response => {
-				console.log(response);
+				pagination.classList.remove(`${blockClass}__pagination--loading`);
 				renderRows(response);
 			})
 		});

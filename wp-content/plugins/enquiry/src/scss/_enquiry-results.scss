@@ -55,4 +55,30 @@
     &__details--loaded &__details-loading {
         display: none;
     }
+
+    &__pagination {
+        margin-top: 5px;
+    }
+
+    &__page-link {
+        cursor: pointer;
+    }
+
+    &__page-link--active {
+        cursor: unset;
+        text-decoration: none;
+    }
+
+    &__page-link:not(:last-child) {
+        margin-right: 10px;
+    }
+
+    &__page-loading {
+        margin-left: 15px;
+        display: none;
+    }
+
+    &__pagination--loading &__page-loading {
+        display: inline;
+    }
 }

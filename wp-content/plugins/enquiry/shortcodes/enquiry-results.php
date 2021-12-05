@@ -53,10 +53,13 @@ function enquiry_results( $atts ){
         <?php if($page_count > 1): ?>
         <div class="enquiry-results__pagination">
             <?php for($i=1; $i<=$page_count; $i++): ?>
-            <a data-page-number="<?php echo $i; ?>" class="enquiry-results__page-link js-page-link">
+            <a data-page-number="<?php echo $i; ?>" class="enquiry-results__page-link js-page-link <?php echo $i==1 ? "enquiry-results__page-link--active" : ""; ?>">
                 <?php echo $i; ?>
             </a>
             <?php endfor; ?>
+            <span class="enquiry-results__page-loading">
+                Loading...
+            </span>
         </div>
         <?php endif; ?>
     </div>

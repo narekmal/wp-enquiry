@@ -78,3 +78,23 @@
 
 .enquiry-results__details--loaded .enquiry-results__details-loading {
   display: none; }
+
+.enquiry-results__pagination {
+  margin-top: 5px; }
+
+.enquiry-results__page-link {
+  cursor: pointer; }
+
+.enquiry-results__page-link--active {
+  cursor: unset;
+  text-decoration: none; }
+
+.enquiry-results__page-link:not(:last-child) {
+  margin-right: 10px; }
+
+.enquiry-results__page-loading {
+  margin-left: 15px;
+  display: none; }
+
+.enquiry-results__pagination--loading .enquiry-results__page-loading {
+  display: inline; }
