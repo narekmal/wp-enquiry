@@ -30,10 +30,10 @@ function enquiry_results( $atts ){
     <div class="enquiry-results">
         <div class="enquiry-results__grid">
             <div class="enquiry-results__grid-header">
-                <div class="enquiry-results__cell">First Name</div>
-                <div class="enquiry-results__cell">Last Name</div>
-                <div class="enquiry-results__cell">Email</div>
-                <div class="enquiry-results__cell">Subject</div>
+                <div class="enquiry-results__cell"><?php _e("First Name", "enquiry"); ?></div>
+                <div class="enquiry-results__cell"><?php _e("Last Name", "enquiry"); ?></div>
+                <div class="enquiry-results__cell"><?php _e("Email", "enquiry"); ?></div>
+                <div class="enquiry-results__cell"><?php _e("Subject", "enquiry"); ?></div>
                 <div class="enquiry-results__cell"></div>
             </div>
 
@@ -45,12 +45,12 @@ function enquiry_results( $atts ){
                     <div class="enquiry-results__cell js-email"><?php echo $row->email; ?></div>
                     <div class="enquiry-results__cell js-subject"><?php echo $row->subject; ?></div>
                     <div class="enquiry-results__cell">
-                        <img class="enquiry-results__row-expander js-row-expander" src="<?php echo ENQUIRY_BASE_URL . '/public/img/eye.svg'; ?>" alt="View Details" title="View Details">
+                        <img class="enquiry-results__row-expander js-row-expander" src="<?php echo ENQUIRY_BASE_URL . '/public/img/eye.svg'; ?>" alt="<?php _e("View Details", "enquiry"); ?>" title="<?php _e("View Details", "enquiry"); ?>">
                     </div>
                     <div class="enquiry-results__details">
-                        <div class="enquiry-results__details-loading">Loading...</div>
+                        <div class="enquiry-results__details-loading"><?php _e("Loading", "enquiry"); ?>...</div>
                         <div class="enquiry-results__details-main">
-                            <div class="enquiry-results__details-title">Message:</div>
+                            <div class="enquiry-results__details-title"><?php _e("Message", "enquiry"); ?>:</div>
                             <div class="enquiry-results__details-content"></div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ function enquiry_results( $atts ){
             </a>
             <?php endfor; ?>
             <span class="enquiry-results__page-loading">
-                Loading...
+                <?php _e("Loading", "enquiry"); ?>...
             </span>
         </div>
         <?php endif; ?>
