@@ -60,6 +60,10 @@
   display: flex;
   align-items: center; }
 
+.enquiry-results__row-expander {
+  width: 28px;
+  cursor: pointer; }
+
 .enquiry-results__details {
   display: none;
   grid-column: 1 / span 5;

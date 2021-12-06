@@ -31,11 +31,14 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
+ * Plugin version.
  */
 define( 'ENQUIRY_VERSION', '1.0.0' );
+
+/**
+ * Plugin base URL.
+ */
+define( 'ENQUIRY_BASE_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.

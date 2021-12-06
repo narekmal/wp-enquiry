@@ -37,7 +37,9 @@ function enquiry_results( $atts ){
                     <div class="enquiry-results__cell js-last-name"><?php echo $row->last_name; ?></div>
                     <div class="enquiry-results__cell js-email"><?php echo $row->email; ?></div>
                     <div class="enquiry-results__cell js-subject"><?php echo $row->subject; ?></div>
-                    <div class="enquiry-results__cell"><button class="js-row-expander">S</button></div>
+                    <div class="enquiry-results__cell">
+                        <img class="enquiry-results__row-expander js-row-expander" src="<?php echo ENQUIRY_BASE_URL . '/public/img/eye.svg'; ?>" alt="">
+                    </div>
                     <div class="enquiry-results__details">
                         <div class="enquiry-results__details-loading">Loading...</div>
                         <div class="enquiry-results__details-main">
