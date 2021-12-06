@@ -44,33 +44,13 @@ const initEnquiryForm = () => {
 }
 
 const initEnquiryResults = () => {
+	initEnquiryResults_expanders();
+	initEnquiryResults_page_links();
+}
+
+const initEnquiryResults_page_links = () => {
 	const blockClass = "enquiry-results";
-	const expanders = document.querySelectorAll(".js-row-expander");
 	const pageLinks = document.querySelectorAll(".js-page-link");
-
-	const handleExpanderClick = e => {
-        const row = e.target.closest(`.${blockClass}__grid-row`);
-        const details = row.querySelector(`.${blockClass}__details`);
-		const rowId = row.getAttribute("data-row-id");
-		details.classList.add(`${blockClass}__details--open`);
-
-		const formData = new FormData();
-		formData.append('action', 'enquiry_get_form_record');
-		formData.append('id', rowId);
-
-		fetch(ajaxUrl, {
-			method: "POST",
-			body: formData
-		})
-		.then(response => { 
-			response.json().then(response => {
-				console.log(response);
-				details.classList.add(`${blockClass}__details--loaded`);
-				console.log(details.querySelector(`.${blockClass}__details-content`));
-				details.querySelector(`.${blockClass}__details-content`).innerText = response.data;
-			})
-		});
-    }
 
 	const handlePageLinkClick = e => {
 		const clickedLink = e.target;
@@ -102,18 +82,58 @@ const initEnquiryResults = () => {
 		});
     }
 
-    expanders.forEach(item => item.addEventListener("click", handleExpanderClick));
     pageLinks.forEach(item => item.addEventListener("click", handlePageLinkClick));
 }
 
+const initEnquiryResults_expanders = () => {
+	const blockClass = "enquiry-results";
+	const expanders = document.querySelectorAll(".js-row-expander");
+
+	const handleExpanderClick = e => {
+        const row = e.target.closest(`.${blockClass}__grid-row`);
+        const details = row.querySelector(`.${blockClass}__details`);
+
+		if(details.classList.contains(`${blockClass}__details--open`)) {
+			details.classList.remove(`${blockClass}__details--open`);
+			return;
+		}
+
+		const rowId = row.getAttribute("data-row-id");
+		details.classList.add(`${blockClass}__details--open`);
+
+		const formData = new FormData();
+		formData.append('action', 'enquiry_get_form_record');
+		formData.append('id', rowId);
+
+		fetch(ajaxUrl, {
+			method: "POST",
+			body: formData
+		})
+		.then(response => { 
+			response.json().then(response => {
+				console.log(response);
+				details.classList.add(`${blockClass}__details--loaded`);
+				console.log(details.querySelector(`.${blockClass}__details-content`));
+				details.querySelector(`.${blockClass}__details-content`).innerText = response.data;
+			})
+		});
+    }
+
+    expanders.forEach(item => item.addEventListener("click", handleExpanderClick));
+}
+
 const renderRows = (rows) => {
+	const blockClass = "enquiry-results";
 	const rowsContainer = document.querySelector('.js-grid-rows');
-	const firstRow = document.querySelector('.js-grid-row');
+
+	const rowTemplate = document.querySelector('.js-grid-row').cloneNode(true);
+	rowTemplate.querySelector(`.${blockClass}__details`).classList.remove(`${blockClass}__details--open`);
+
 	const newRows = document.createElement("div");
 	newRows.style.display = "contents";
 
 	rows.data.forEach(row => {
-		const clone = firstRow.cloneNode(true);
+		const clone = rowTemplate.cloneNode(true);
 		clone.querySelector(".js-first-name").innerText = row.first_name;
 		clone.querySelector(".js-last-name").innerText = row.last_name;
 		clone.querySelector(".js-subject").innerText = row.subject;
@@ -123,4 +143,5 @@ const renderRows = (rows) => {
 
 	rowsContainer.innerHTML = '';
 	rowsContainer.appendChild(newRows);
+	initEnquiryResults_expanders();
 }
