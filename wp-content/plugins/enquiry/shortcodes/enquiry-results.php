@@ -1,6 +1,13 @@
 <?php
 
 function enquiry_results( $atts ){
+    $user = wp_get_current_user();
+    $is_admin = in_array("administrator", $user->roles);
+
+    if(!$is_admin) {
+        echo "<h2>You are not authorized to view enquiry results.</h2>";
+        return;
+    }
 
     global $wpdb;
 

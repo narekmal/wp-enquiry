@@ -1,6 +1,8 @@
 <?php
 
 function enquiry_form( $atts ){
+    $user = wp_get_current_user();
+
 	ob_start();
     ?>
 
@@ -10,11 +12,14 @@ function enquiry_form( $atts ){
         <h3 class="enquiry-form__heading">Submit your feedback</h3>
         <form class="enquiry-form__form js-enquiry-form">
             <div class="enquiry-form__row">
-                <input name="first_name" type="text" placeholder="First Name" class="enquiry-form__first-name">
-                <input name="last_name" type="text" placeholder="Last Name" class="enquiry-form__last-name">
+                <input name="first_name" type="text" placeholder="First Name" class="enquiry-form__first-name" 
+                    value="<?php echo $user->exists() ? $user->user_firstname : ""; ?>" >
+                <input name="last_name" type="text" placeholder="Last Name" class="enquiry-form__last-name"
+                    value="<?php echo $user->exists() ? $user->user_lastname : ""; ?>" >
             </div>
             <div class="enquiry-form__row">
-                <input name="email" type="text" placeholder="Email" class="enquiry-form__email">
+                <input name="email" type="text" placeholder="Email" class="enquiry-form__email"
+                    value="<?php echo $user->exists() ? $user->user_email : ""; ?>" >
                 <input name="subject" type="text" placeholder="Subject" class="enquiry-form__subject">
             </div>
             <textarea name="message" placeholder="Message" cols="30" rows="10" class="enquiry-form__message"></textarea>
