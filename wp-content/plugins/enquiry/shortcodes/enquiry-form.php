@@ -23,17 +23,16 @@ function enquiry_form( $atts ){
                 <input name="subject" type="text" placeholder="Subject" class="enquiry-form__subject">
             </div>
             <textarea name="message" placeholder="Message" cols="30" rows="10" class="enquiry-form__message"></textarea>
-            <input type="submit" class="enquiry-form__submit">
+            <div class="enquiry-form__last-row">
+                <input type="submit" class="enquiry-form__submit">
+                <div class="enquiry-form__status">
+                    <div class="enquiry-form__status-processing">Processing...</div>
+                    <div class="enquiry-form__status-success">Thank you for sending us your feedback</div>
+                    <div class="enquiry-form__status-failure">Something went wrong, please try to submit again</div>
+                    <div class="enquiry-form__status-invalid">Please fill out all fields</div>
+                </div>
+            </div>
         </form>
-        <div class="enquiry-form__overlay enquiry-form__overlay--processing">
-            <span>Processing...</span>
-        </div>
-        <div class="enquiry-form__overlay enquiry-form__overlay--success">
-            <span>Thank you for sending us your feedback</span>
-        </div>
-        <div class="enquiry-form__overlay enquiry-form__overlay--failure">
-            <span>Something went wrong, please try to submit again</span>
-        </div>
     </div>
     
     <?php

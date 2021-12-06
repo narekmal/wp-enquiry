@@ -13,24 +13,23 @@
       margin-right: 5px; }
   .enquiry-form__message {
     margin-bottom: 5px; }
-  .enquiry-form__overlay {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: rgba(150, 150, 150, 0.95);
-    z-index: 10000; }
-  .enquiry-form--processing .enquiry-form__overlay--processing {
-    display: flex; }
-  .enquiry-form--success .enquiry-form__overlay--success {
-    display: flex; }
-  .enquiry-form--failure .enquiry-form__overlay--failure {
-    display: flex; }
+  .enquiry-form__last-row {
+    display: flex;
+    align-items: center; }
+  .enquiry-form__status {
+    margin-left: 10px; }
+  .enquiry-form__status > * {
+    display: none; }
+  .enquiry-form__status-invalid {
+    color: red; }
+  .enquiry-form--processing .enquiry-form__status-processing {
+    display: block; }
+  .enquiry-form--success .enquiry-form__status-success {
+    display: block; }
+  .enquiry-form--failure .enquiry-form__status-failure {
+    display: block; }
+  .enquiry-form--invalid .enquiry-form__status-invalid {
+    display: block; }
 
 .enquiry-results__grid {
   display: grid;

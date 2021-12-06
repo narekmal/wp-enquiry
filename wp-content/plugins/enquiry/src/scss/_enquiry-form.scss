@@ -24,29 +24,36 @@
         margin-bottom: 5px;
     }
 
-    &__overlay {
-        display: none;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        justify-content: center;
+    &__last-row {
+        display: flex;
         align-items: center;
-        text-align: center;
-        background-color: rgba(150, 150, 150, .95);
-        z-index: 10000;
     }
 
-    &--processing &__overlay--processing {
-        display: flex;
+    &__status {
+        margin-left: 10px;
     }
 
-    &--success &__overlay--success {
-        display: flex;
+    &__status > * {
+        display: none;
     }
 
-    &--failure &__overlay--failure {
-        display: flex;
+    &__status-invalid {
+        color: red;
+    }
+
+    &--processing &__status-processing {
+        display: block;
+    }
+
+    &--success &__status-success {
+        display: block;
+    }
+
+    &--failure &__status-failure {
+        display: block;
+    }
+
+    &--invalid &__status-invalid {
+        display: block;
     }
 }

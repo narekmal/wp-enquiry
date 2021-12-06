@@ -15,14 +15,26 @@ const initEnquiryForm = () => {
 		e.preventDefault();
 
 		const blockElement = form.closest(".enquiry-form");
-		blockElement.classList.add("enquiry-form--processing");
+		blockElement.classList.remove("enquiry-form--success");
 
 		const formData = new FormData();
-		formData.append('action', 'enquiry_process_form_data');
 		const inputNames = ["first_name", "last_name", "email", "subject", "message"];
+		let valid = true;
+
 		inputNames.forEach(name => {
-			formData.append(name, form.querySelector(`[name='${name}']`).value);
+			const value = form.querySelector(`[name='${name}']`).value;
+			valid = (value !== "");
+			formData.append(name, value);
 		});
+
+		if(!valid) {
+			blockElement.classList.add("enquiry-form--invalid");
+			return;
+		}
+
+		blockElement.classList.remove("enquiry-form--invalid");
+		blockElement.classList.add("enquiry-form--processing");
+		formData.append('action', 'enquiry_process_form_data');
 
 		fetch(ajaxUrl, {
 			method: "POST",
