@@ -78,13 +78,8 @@ const initEnquiryResults_page_links = () => {
 
 		pagination.classList.add(`${blockClass}__pagination--loading`);
 
-		const formData = new FormData();
-		formData.append('action', 'enquiry_get_form_data');
-		formData.append('page_number', pageNumber);
-
-		fetch(ajaxUrl, {
-			method: "POST",
-			body: formData
+		fetch(`${ajaxUrl}?action=enquiry_get_form_data&page_number=${pageNumber}`, {
+			method: "GET"
 		})
 		.then(response => { 
 			response.json().then(response => {
@@ -113,11 +108,7 @@ const initEnquiryResults_expanders = () => {
 		const rowId = row.getAttribute("data-row-id");
 		details.classList.add(`${blockClass}__details--open`);
 
-		const formData = new FormData();
-		formData.append('action', 'enquiry_get_form_record');
-		formData.append('id', rowId);
-
-		fetch(ajaxUrl, {
+		fetch(`${ajaxUrl}?action=enquiry_get_form_record&id=${rowId}`, {
 			method: "POST",
 			body: formData
 		})

@@ -97,7 +97,7 @@ add_shortcode( 'enquiry_results', 'render_enquiry_results' );
 function get_enquiry_form_record() {
 	global $wpdb;
 
-	if ( empty( $_POST['id'] ) ) {
+	if ( empty( $_GET['id'] ) ) {
 		wp_send_json_error();
 		die();
 	}
@@ -108,7 +108,7 @@ function get_enquiry_form_record() {
 			FROM %1senquiry_form_data
 			WHERE id=%d',
 			$wpdb->prefix,
-			$_POST['id']
+			$_GET['id']
 		)
 	);
 
@@ -125,7 +125,7 @@ add_action( 'wp_ajax_enquiry_get_form_record', 'get_enquiry_form_record' );
 function get_enquiry_form_data() {
 	global $wpdb;
 
-	$offset = ( $_POST['page_number'] - 1 ) * 10;
+	$offset = ( $_GET['page_number'] - 1 ) * 10;
 
 	$sql = "SELECT id, first_name, last_name, email, subject
 		FROM {$wpdb->prefix}enquiry_form_data
@@ -144,5 +144,5 @@ function get_enquiry_form_data() {
 
 	die();
 }
-add_action( 'wp_ajax_nopriv_enquiry_get_form_data', 'enquiry_get_form_data' );
-add_action( 'wp_ajax_enquiry_get_form_data', 'enquiry_get_form_data' );
+add_action( 'wp_ajax_nopriv_enquiry_get_form_data', 'get_enquiry_form_data' );
+add_action( 'wp_ajax_enquiry_get_form_data', 'get_enquiry_form_data' );
