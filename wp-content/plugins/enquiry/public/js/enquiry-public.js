@@ -16,6 +16,7 @@ const initEnquiryForm = () => {
 
 		const blockElement = form.closest(".enquiry-form");
 		blockElement.classList.remove("enquiry-form--success");
+		blockElement.classList.remove("enquiry-form--failure");
 
 		const formData = new FormData();
 		const inputNames = ["first_name", "last_name", "email", "subject", "message"];
@@ -42,9 +43,8 @@ const initEnquiryForm = () => {
 		})
 		.then(response => { 
 			response.json().then(response => {
-				console.log(response);
 				blockElement.classList.remove("enquiry-form--processing");
-				blockElement.classList.add(response.status == "success" ? "enquiry-form--success" : "enquiry-form--failure");
+				blockElement.classList.add(response.success ? "enquiry-form--success" : "enquiry-form--failure");
 			})
 		})
 		.catch(function(response){ 
