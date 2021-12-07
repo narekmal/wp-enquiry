@@ -32,6 +32,7 @@ function enquiry_form() {
 			</div>
 			<textarea name="message" placeholder="<?php esc_html_e( 'Message', 'enquiry' ); ?>" cols="30" rows="10" class="enquiry-form__message"></textarea>
 			<div class="enquiry-form__last-row">
+				<?php wp_nonce_field( 'enquiry_process_form_data', 'enquiry-form-nonce' ); ?>
 				<input type="submit" class="enquiry-form__submit">
 				<div class="enquiry-form__status">
 					<div class="enquiry-form__status-processing"><?php esc_html_e( 'Processing', 'enquiry' ); ?>...</div>
@@ -54,6 +55,12 @@ add_shortcode( 'enquiry_form', 'enquiry_form' );
  * AJAX endpoint for processing form data
  */
 function process_enquiry_form_data() {
+	if ( empty( $_POST['enquiry-form-nonce'] ) ||
+		! wp_verify_nonce( $_POST['enquiry-form-nonce'], 'enquiry_process_form_data' ) ) {
+		wp_send_json_error();
+		die();
+	}
+
 	global $wpdb;
 
 	$post_params = array( 'first_name', 'last_name', 'email', 'subject', 'message' );

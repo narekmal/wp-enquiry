@@ -19,15 +19,16 @@ const initEnquiryForm = () => {
 		blockElement.classList.remove("enquiry-form--failure");
 
 		const formData = new FormData();
-		const inputNames = ["first_name", "last_name", "email", "subject", "message"];
+		const inputNames = ["first_name", "last_name", "email", "subject", "message", "enquiry-form-nonce"];
 		let valid = true;
 
 		inputNames.forEach(name => {
 			const value = form.querySelector(`[name='${name}']`).value;
-			valid = (value !== "");
+			if(valid)
+				valid = (value !== "");
 			formData.append(name, value);
 		});
-
+		
 		if(!valid) {
 			blockElement.classList.add("enquiry-form--invalid");
 			return;
