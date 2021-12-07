@@ -137,6 +137,7 @@ const renderRows = (rows) => {
 
 	rows.data.forEach(row => {
 		const clone = rowTemplate.cloneNode(true);
+		clone.setAttribute("data-row-id", row.id);
 		clone.querySelector(".js-first-name").innerText = row.first_name;
 		clone.querySelector(".js-last-name").innerText = row.last_name;
 		clone.querySelector(".js-subject").innerText = row.subject;
