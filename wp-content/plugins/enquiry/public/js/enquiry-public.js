@@ -109,8 +109,7 @@ const initEnquiryResults_expanders = () => {
 		details.classList.add(`${blockClass}__details--open`);
 
 		fetch(`${ajaxUrl}?action=enquiry_get_form_record&id=${rowId}`, {
-			method: "POST",
-			body: formData
+			method: "GET"
 		})
 		.then(response => { 
 			response.json().then(response => {

@@ -95,12 +95,13 @@ add_shortcode( 'enquiry_results', 'render_enquiry_results' );
  * AJAX endpoint for getting form submission message by record id
  */
 function get_enquiry_form_record() {
-	global $wpdb;
 
 	if ( empty( $_GET['id'] ) ) {
 		wp_send_json_error();
 		die();
 	}
+
+	global $wpdb;
 
 	$result = $wpdb->get_var(
 		$wpdb->prepare(
@@ -108,7 +109,7 @@ function get_enquiry_form_record() {
 			FROM %1senquiry_form_data
 			WHERE id=%d',
 			$wpdb->prefix,
-			$_GET['id']
+			intval( $_GET['id'] )
 		)
 	);
 
@@ -123,24 +124,28 @@ add_action( 'wp_ajax_enquiry_get_form_record', 'get_enquiry_form_record' );
  * AJAX endpoint for getting paged form records by page number
  */
 function get_enquiry_form_data() {
+
+	if ( empty( $_GET['page_number'] ) ) {
+		wp_send_json_error();
+		die();
+	}
+
 	global $wpdb;
+	$offset = ( intval( $_GET['page_number'] ) - 1 ) * 10;
 
-	$offset = ( $_GET['page_number'] - 1 ) * 10;
-
-	$sql = "SELECT id, first_name, last_name, email, subject
-		FROM {$wpdb->prefix}enquiry_form_data
-		ORDER BY time_submitted DESC
-		LIMIT 10
-		OFFSET $offset";
-
-	$form_data = $wpdb->get_results( $sql );
-
-	echo json_encode(
-		array(
-			'status' => $form_data ? 'success' : 'failure',
-			'data'   => $form_data,
+	$form_data = $wpdb->get_results(
+		$wpdb->prepare(
+			'SELECT id, first_name, last_name, email, subject
+			FROM %1senquiry_form_data
+			ORDER BY time_submitted DESC
+			LIMIT 10
+			OFFSET %d',
+			$wpdb->prefix,
+			$offset
 		)
 	);
+
+	$form_data ? wp_send_json_success( $form_data ) : wp_send_json_error();
 
 	die();
 }
