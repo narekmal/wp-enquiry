@@ -116,6 +116,7 @@ const renderEnquiryResultsRows = (rows) => {
 
   const rowTemplate = document.querySelector('.js-grid-row').cloneNode(true);
   rowTemplate.querySelector(`.${blockClass}__details`).classList.remove(`${blockClass}__details--open`);
+  rowTemplate.querySelector(`.${blockClass}__details`).classList.remove(`${blockClass}__details--loaded`);
 
   const newRows = document.createElement('div');
   newRows.style.display = 'contents';
