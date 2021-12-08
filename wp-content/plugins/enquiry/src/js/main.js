@@ -132,7 +132,7 @@ const renderEnquiryResultsRows = (rows) => {
 
   rowsContainer.innerHTML = '';
   rowsContainer.appendChild(newRows);
-  initEnquiryResults_expanders();
+  initEnquiryResultsExpanders();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
