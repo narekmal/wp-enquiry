@@ -1,7 +1,7 @@
 .enquiry-results {
     &__grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr) auto;
+        grid-template-columns: repeat(4, auto) 36px;
         border: 1px solid grey;
     }
 
@@ -14,8 +14,6 @@
         background-color: #cd2653;
         color: white;
     }
-
-    &__grid-header+&__grid-row &__details{display: block;}
 
     &__grid-rows, &__grid-row {
         display: contents;

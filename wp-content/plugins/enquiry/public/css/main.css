@@ -33,7 +33,7 @@
 
 .enquiry-results__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr) auto;
+  grid-template-columns: repeat(4, auto) 36px;
   border: 1px solid grey; }
 
 .enquiry-results__grid-header {
@@ -43,9 +43,6 @@
 .enquiry-results__grid-header > * {
   background-color: #cd2653;
   color: white; }
-
-.enquiry-results__grid-header + .enquiry-results__grid-row .enquiry-results__details {
-  display: block; }
 
 .enquiry-results__grid-rows, .enquiry-results__grid-row {
   display: contents; }
